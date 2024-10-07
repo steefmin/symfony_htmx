@@ -1,0 +1,19 @@
+<style>
+    .todo.htmx-request {
+        color: gray;
+    }
+</style>
+<div id="{{ 'todo-' ~ todo.id }}" class="todo"> {{ todo.id }}<span class="font-bold"> {{ todo.title }}</span>
+    {% if todo.removable %}
+        <button
+                type="button"
+                hx-post="{{ url('app_todo_delete', {id: todo.id}) }}"
+                hx-target="{{ '#todo-' ~ todo.id }}"
+                hx-swap="outerHtml"
+                hx-indicator="closest div"
+                hx-disabled-elt="this"
+        >
+            Delete
+        </button>
+    {% endif %}
+</div>

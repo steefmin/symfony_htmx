@@ -1,0 +1,40 @@
+<style>
+    .loading-indicator.loading {
+        display: none;
+    }
+
+    .loading-indicator.loading.htmx-request {
+        display: inline;
+    }
+
+    .loading-indicator.not-loading {
+        display: inline
+    }
+
+    .loading-indicator.not-loading.htmx-request {
+        display: none
+    }
+
+</style>
+
+{% if error is defined and error != '' %}
+    <button
+            id="save-new-todo"
+            hx-swap-oob="outerHTML"
+            disabled
+            class="rounded-md bg-indigo-300 px-3 py-2 text-sm font-semibold text-white shadow-sm disabled"
+    >
+        Save
+    </button>
+{% else %}
+    <button
+            id="save-new-todo"
+            hx-post="{{ url('app_todo_new') }}" hx-target="#todolist" hx-swap="beforeend"
+            hx-swap-oob="outerHTML"
+            hx-indicator="span.loading-indicator"
+            hx-disabled-elt="this"
+            class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:bg-indigo-300"
+    >
+        <span class="loading-indicator not-loading">Save</span><span class="loading-indicator loading">Loading...</span>
+    </button>
+{% endif %}

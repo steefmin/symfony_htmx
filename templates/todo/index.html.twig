@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TodoController!{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper {
+            margin: 1em auto;
+            max-width: 800px;
+            width: 95%;
+            font: 18px/1.5 sans-serif;
+        }
+
+    </style>
+
+    <div class="example-wrapper">
+        <form>
+            <div class="space-y-12">
+                <div class="mt-10 mb-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+                    <div class="sm:col-span-3">
+                        <label for="username"
+                               class="block text-sm font-medium leading-6 text-gray-900">Title</label>
+                        {% include 'todo/form/error.html.twig' with {'target': 'title', 'error': error | default('')} %}
+                        <div class="mt-2">
+                            <div class="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 sm:max-w-md">
+                                {% include 'todo/form/input.html.twig' with {field: 'title'} %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sm-col-span-2 mt-8">
+                        {% include 'todo/form/submit.html.twig' with {'error': 'new form'} %}
+                    </div>
+                </div>
+            </div>
+        </form>
+
+        <div id="todolist" class="flex flex-col">
+            {% for todo in todos %}
+                {% include 'todo/todo.html.twig' with {'todo': todo} %}
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
